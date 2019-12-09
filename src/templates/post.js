@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 
 export default  ({ data }) => {
@@ -12,6 +12,13 @@ export default  ({ data }) => {
       <div
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
+      <ul>
+        {post.frontmatter.tags.map(tag => (
+            <li key={`/tags/${tag}/`}>
+              <Link to={`/tags/${tag}/`}>{tag}</Link>
+            </li>
+        ))}
+      </ul>
     </Layout>
   );
 };
@@ -23,6 +30,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "DD MMMM, YYYY")
+        tags
       }
     }
   }
