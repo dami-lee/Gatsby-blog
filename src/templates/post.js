@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { Link, graphql } from 'gatsby';
-import Layout from '../components/Layout';
+import React, { useEffect } from "react";
+import { Link, graphql } from "gatsby";
+import Layout from "../components/Layout";
 
 export default ({ data }) => {
   const post = data.markdownRemark;
 
   useEffect(() => {
-    const script = document.createElement('script');
-    const anchor = document.getElementById('inject-comments-for-uterances');
+    const script = document.createElement("script");
+    const anchor = document.getElementById("inject-comments-for-uterances");
 
-    script.setAttribute('src', 'https://utteranc.es/client.js');
-    script.setAttribute('repo', 'dami-lee/blog-comments');
-    script.setAttribute('issue-term', 'url');
-    script.setAttribute('theme', 'github-light');
-    script.setAttribute('crossorigin', 'anonymous');
-    script.setAttribute('async', true);
+    script.setAttribute("src", "https://utteranc.es/client.js");
+    script.setAttribute("repo", "dami-lee/blog-comments");
+    script.setAttribute("issue-term", "url");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("async", true);
 
     anchor.appendChild(script);
   });
@@ -23,14 +23,12 @@ export default ({ data }) => {
     <Layout>
       <h1>{post.frontmatter.title}</h1>
       <h2>{post.frontmatter.date}</h2>
-      <div
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: post.html }} />
       <ul>
         {post.frontmatter.tags.map(tag => (
-            <li key={`/tags/${tag}/`}>
-              <Link to={`/tags/${tag}/`}>{tag}</Link>
-            </li>
+          <li key={`/tags/${tag}/`}>
+            <Link to={`/tags/${tag}/`}>{tag}</Link>
+          </li>
         ))}
       </ul>
 
@@ -45,7 +43,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "DD MMMM, YYYY")
+        date(formatString: "YYYY-MM-DD")
         tags
       }
     }

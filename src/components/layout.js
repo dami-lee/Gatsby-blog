@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
-
-import Header from './Header';
+import React from "react";
+import PropTypes from "prop-types";
+import { useStaticQuery, graphql } from "gatsby";
+import Header from "./Header";
+import "../styles/style.css";
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -16,12 +16,10 @@ const Layout = ({ children }) => {
   `);
 
   return (
-    <>
+    <div className="wrap">
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div>
-        <main>{children}</main>
-      </div>
-    </>
+      <main>{children}</main>
+    </div>
   );
 };
 

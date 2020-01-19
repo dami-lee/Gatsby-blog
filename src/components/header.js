@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Link } from "gatsby";
+import PropTypes from "prop-types";
 
 const Header = ({ siteTitle }) => (
   <header>
-    <div>
-      <h1>
-        <Link to="/">
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
+    <h1>
+      <Link to="/">{siteTitle}</Link>
+    </h1>
+    <nav>
+      <Link to="/about/">About</Link>
+      <Link to="/tags/">Tags</Link>
+    </nav>
   </header>
 );
 
