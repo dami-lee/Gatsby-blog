@@ -14,7 +14,7 @@ export default ({ data }) => {
           <li key={node.id}>
             <Link to={node.fields.slug}>
               <h3>{node.frontmatter.title}</h3>
-              <p>{node.frontmatter.date}</p>
+              <p class="date">{node.frontmatter.date}</p>
               <p>{node.excerpt}</p>
             </Link>
           </li>
