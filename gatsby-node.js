@@ -1,32 +1,32 @@
-const path = require('path');
-const _ = require('lodash');
+const path = require("path");
+const _ = require("lodash");
 
-const { createFilePath } = require('gatsby-source-filesystem');
+const { createFilePath } = require("gatsby-source-filesystem");
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode, basePath: 'pages' });
+  if (node.internal.type === "MarkdownRemark") {
+    const slug = createFilePath({ node, getNode, basePath: "pages" });
 
     createNodeField({
       node,
-      name: 'slug',
-      value: slug
+      name: "slug",
+      value: slug,
     });
-  };
+  }
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
 
-  const blogPostTemplate = path.resolve('src/templates/post.js');
-  const tagTemplate = path.resolve('src/templates/tags.js');
+  const blogPostTemplate = path.resolve("src/templates/post.js");
+  const tagTemplate = path.resolve("src/templates/tags.js");
 
   const result = await graphql(`
     {
       postRemark: allMarkdownRemark(
-        limit: 2000,
+        limit: 2000
         sort: { order: DESC, fields: [frontmatter___date] }
       ) {
         edges {
@@ -49,9 +49,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   `);
 
   if (result.errors) {
-    reporter.panicOnBuild('Error while running GraphQL query.');
+    reporter.panicOnBuild("Error while running GraphQL query.");
     return;
-  };
+  }
 
   const posts = result.data.postRemark.edges;
 
@@ -60,8 +60,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       path: node.fields.slug,
       component: blogPostTemplate,
       context: {
-        slug: node.fields.slug
-      }
+        slug: node.fields.slug,
+      },
     });
   });
 
@@ -72,8 +72,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
       component: tagTemplate,
       context: {
-        tag: tag.fieldValue
-      }
+        tag: tag.fieldValue,
+      },
     });
   });
 };
